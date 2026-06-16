@@ -297,6 +297,25 @@ require('lazy').setup({
     dependencies = { 'saghen/blink.cmp' },
   },
 
+  {
+    'nvim-java/nvim-java',
+    config = function()
+      require('java').setup()
+      vim.lsp.enable 'jdtls'
+    end,
+  },
+
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    config = function()
+      require('toggleterm').setup {
+        direction = 'float',
+        open_mapping = [[<c-\>]],
+      }
+    end,
+  },
+
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -698,6 +717,12 @@ require('lazy').setup({
         gopls = {},
         pyright = {},
         rust_analyzer = {},
+        ts_ls = {},
+        html = {},
+        cssls = {},
+        emmet_ls = {
+          filetypes = { 'html', 'css', 'javascriptreact' },
+        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -739,7 +764,6 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'rustfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
